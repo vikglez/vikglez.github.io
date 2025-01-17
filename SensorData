@@ -1,3 +1,0 @@
-git clone https://github.com/username/vikglez.github.io
-cd vikglez.github.io
-echo "SensorData" > index.html

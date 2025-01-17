@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Real-Time Sensor Data</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                text-align: center;
+                background: #f4f4f9;
+                color: #333;
+                margin: 0;
+            }
+            h1 {
+                margin-top: 20px;
+            }
+            table {
+                margin: 20px auto;
+                border-collapse: collapse;
+                width: 80%;
+                max-width: 500px;
+                background: #fff;
+                border: 1px solid #ddd;
+            }
+            th, td {
+                padding: 10px;
+                border: 1px solid #ddd;
+            }
+            th {
+                background: #f0f0f0;
+            }
+        </style>
+        <script>
+            function updateData() {
+                fetch('http://<NodeMCU-IP>/data') // Replace <NodeMCU-IP> with the actual IP
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('aht_temp').innerText = data.t_aht + ' °F';
+                        document.getElementById('aht_humidity').innerText = data.h_aht + ' %';
+                        document.getElementById('bmp_temp').innerText = data.t_bmp + ' °F';
+                        document.getElementById('bmp_pressure').innerText = data.p_bmp + ' inHg';
+                    })
+                    .catch(err => console.error('Error fetching data:', err));
+            }
+            setInterval(updateData, 2000); // Refresh every 2 seconds
+        </script>
+    </head>
+    <body onload="updateData()">
+        <h1>Real-Time Sensor Data</h1>
+        <table>
+            <tr>
+                <th>Sensor</th>
+                <th>Measurement</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>AHT20</td>
+                <td>Temperature</td>
+                <td id="aht_temp">--</td>
+            </tr>
+            <tr>
+                <td>AHT20</td>
+                <td>Humidity</td>
+                <td id="aht_humidity">--</td>
+            </tr>
+            <tr>
+                <td>BMP280</td>
+                <td>Temperature</td>
+                <td id="bmp_temp">--</td>
+            </tr>
+            <tr>
+                <td>BMP280</td>
+                <td>Pressure</td>
+                <td id="bmp_pressure">--</td>
+            </tr>
+        </table>
+    </body>
+</html>
