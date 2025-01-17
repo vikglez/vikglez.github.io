@@ -31,7 +31,7 @@
         </style>
         <script>
             function updateData() {
-                fetch('http://192.168.1.29/data') // Replace <NodeMCU-IP> with the actual IP
+                fetch('http://192.168.1.29/data') 
                     .then(response => response.json())
                     .then(data => {
                         document.getElementById('aht_temp').innerText = data.t_aht + ' °F';
@@ -41,7 +41,7 @@
                     })
                     .catch(err => console.error('Error fetching data:', err));
             }
-            setInterval(updateData, 2000); // Refresh every 2 seconds
+            setInterval(updateData, 1000); // Refresh every 2 seconds
         </script>
     </head>
     <body onload="updateData()">
